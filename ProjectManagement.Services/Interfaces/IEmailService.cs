@@ -1,6 +1,6 @@
 ﻿using ProjectManagement.Services.Models;
 
-namespace ProjectManagement.Services.Services
+namespace ProjectManagement.Services.Interfaces
 {
     public interface IEmailService
     {

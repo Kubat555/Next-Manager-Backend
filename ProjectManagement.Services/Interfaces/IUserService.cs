@@ -1,9 +1,8 @@
-﻿
-using ProjectManagement.Services.Models;
+﻿using ProjectManagement.Services.Models;
 using ProjectManagement.Services.Models.Authentication.Login;
 using ProjectManagement.Services.Models.Authentication.Signup;
 
-namespace ProjectManagement.Services.Services
+namespace ProjectManagement.Services.Interfaces
 {
     public interface IUserService
     {

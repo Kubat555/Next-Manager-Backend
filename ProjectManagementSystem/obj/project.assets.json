@@ -1150,6 +1150,20 @@
           }
         }
       },
+      "ProjectManagement.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.29",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29"
+        },
+        "compile": {
+          "bin/placeholder/ProjectManagement.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProjectManagement.Data.dll": {}
+        }
+      },
       "ProjectManagement.Services/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -1157,7 +1171,8 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.29",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.29",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29",
-          "NETCore.MailKit": "2.1.0"
+          "NETCore.MailKit": "2.1.0",
+          "ProjectManagement.Data": "1.0.0"
         },
         "compile": {
           "bin/placeholder/ProjectManagement.Services.dll": {}
@@ -3270,6 +3285,11 @@
         "version.txt"
       ]
     },
+    "ProjectManagement.Data/1.0.0": {
+      "type": "project",
+      "path": "../ProjectManagement.Data/ProjectManagement.Data.csproj",
+      "msbuildProject": "../ProjectManagement.Data/ProjectManagement.Data.csproj"
+    },
     "ProjectManagement.Services/1.0.0": {
       "type": "project",
       "path": "../ProjectManagement.Services/ProjectManagement.Services.csproj",
@@ -3282,6 +3302,7 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.29",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.29",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.29",
+      "ProjectManagement.Data >= 1.0.0",
       "ProjectManagement.Services >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
@@ -3319,6 +3340,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "E:\\Education\\Проекты\\ProjectManagementSystem\\ProjectManagement.Data\\ProjectManagement.Data.csproj": {
+              "projectPath": "E:\\Education\\Проекты\\ProjectManagementSystem\\ProjectManagement.Data\\ProjectManagement.Data.csproj"
+            },
             "E:\\Education\\Проекты\\ProjectManagementSystem\\ProjectManagement.Services\\ProjectManagement.Services.csproj": {
               "projectPath": "E:\\Education\\Проекты\\ProjectManagementSystem\\ProjectManagement.Services\\ProjectManagement.Services.csproj"
             }

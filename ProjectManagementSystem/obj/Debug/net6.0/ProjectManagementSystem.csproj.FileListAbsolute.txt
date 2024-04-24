@@ -74,3 +74,5 @@ E:\Education\Проекты\ProjectManagementSystem\ProjectManagementSystem\bin\
 E:\Education\Проекты\ProjectManagementSystem\ProjectManagementSystem\bin\Debug\net6.0\BouncyCastle.Crypto.dll
 E:\Education\Проекты\ProjectManagementSystem\ProjectManagementSystem\bin\Debug\net6.0\ProjectManagement.Services.dll
 E:\Education\Проекты\ProjectManagementSystem\ProjectManagementSystem\bin\Debug\net6.0\ProjectManagement.Services.pdb
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagementSystem\bin\Debug\net6.0\ProjectManagement.Data.dll
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagementSystem\bin\Debug\net6.0\ProjectManagement.Data.pdb

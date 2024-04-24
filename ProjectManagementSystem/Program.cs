@@ -5,22 +5,29 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProjectManagement.Services.Models;
 using ProjectManagement.Services.Services;
-using ProjectManagementSystem.Models;
+using ProjectManagement.Data;
 using System.Text;
+using ProjectManagement.Data.Models;
+using ProjectManagement.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 //For EF
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
 
 //For Identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(
-        opts => opts.SignIn.RequireConfirmedEmail = true
+        opts => { 
+            opts.SignIn.RequireConfirmedEmail = true;
+            opts.User.RequireUniqueEmail = true;
+            opts.Password.RequireUppercase = false;
+            opts.Password.RequireNonAlphanumeric = false;
+        }
     );
 
 //Adding Authentication

@@ -12,3 +12,6 @@ E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Services\o
 E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Services\obj\Debug\net6.0\ref\ProjectManagement.Services.dll
 E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Services\bin\Debug\net6.0\ProjectManagement.Services.runtimeconfig.json
 E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Services\obj\Debug\net6.0\ProjectManagement.Services.genruntimeconfig.cache
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Services\bin\Debug\net6.0\ProjectManagement.Data.dll
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Services\bin\Debug\net6.0\ProjectManagement.Data.pdb
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Services\obj\Debug\net6.0\ProjectManagement.Services.csproj.CopyComplete

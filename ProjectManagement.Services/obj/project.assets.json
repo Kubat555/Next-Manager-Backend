@@ -1062,6 +1062,20 @@
             "rid": "win"
           }
         }
+      },
+      "ProjectManagement.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.29",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29"
+        },
+        "compile": {
+          "bin/placeholder/ProjectManagement.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProjectManagement.Data.dll": {}
+        }
       }
     }
   },
@@ -2828,6 +2842,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "ProjectManagement.Data/1.0.0": {
+      "type": "project",
+      "path": "../ProjectManagement.Data/ProjectManagement.Data.csproj",
+      "msbuildProject": "../ProjectManagement.Data/ProjectManagement.Data.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -2836,7 +2855,8 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.29",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.29",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.29",
-      "NETCore.MailKit >= 2.1.0"
+      "NETCore.MailKit >= 2.1.0",
+      "ProjectManagement.Data >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2871,7 +2891,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\Education\\Проекты\\ProjectManagementSystem\\ProjectManagement.Data\\ProjectManagement.Data.csproj": {
+              "projectPath": "E:\\Education\\Проекты\\ProjectManagementSystem\\ProjectManagement.Data\\ProjectManagement.Data.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

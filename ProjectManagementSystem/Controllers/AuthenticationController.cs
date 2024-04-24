@@ -1,11 +1,9 @@
 ﻿
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagement.Services.Interfaces;
 using ProjectManagement.Services.Models;
 using ProjectManagement.Services.Models.Authentication.Login;
 using ProjectManagement.Services.Models.Authentication.Signup;
-using ProjectManagement.Services.Services;
-using ProjectManagementSystem.Models;
 
 namespace ProjectManagementSystem.Controllers
 {
@@ -33,7 +31,7 @@ namespace ProjectManagementSystem.Controllers
             {
                 var confirmationLink = Url.Action(nameof(ConfirmEmail), "Authentication", new { token = result.Response, email = registerUser.Email }, Request.Scheme);
 
-                var content = _emailService.GetHtmlConfirmEmail(registerUser.UserName!, confirmationLink!);
+                var content = _emailService.GetHtmlConfirmEmail(registerUser.FirstName!, confirmationLink!);
 
                 var message = new Message(new string[] { registerUser.Email! }, "Confirmation email link", content!);
                 _emailService.SendEmail(message);

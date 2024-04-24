@@ -1,0 +1,14 @@
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\bin\Debug\net6.0\ProjectManagement.Data.deps.json
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\bin\Debug\net6.0\ProjectManagement.Data.dll
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\bin\Debug\net6.0\ProjectManagement.Data.pdb
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\obj\Debug\net6.0\ProjectManagement.Data.csproj.AssemblyReference.cache
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\obj\Debug\net6.0\ProjectManagement.Data.GeneratedMSBuildEditorConfig.editorconfig
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\obj\Debug\net6.0\ProjectManagement.Data.AssemblyInfoInputs.cache
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\obj\Debug\net6.0\ProjectManagement.Data.AssemblyInfo.cs
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\obj\Debug\net6.0\ProjectManagement.Data.csproj.CoreCompileInputs.cache
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\obj\Debug\net6.0\ProjectManagement.Data.dll
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\obj\Debug\net6.0\refint\ProjectManagement.Data.dll
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\obj\Debug\net6.0\ProjectManagement.Data.pdb
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\obj\Debug\net6.0\ref\ProjectManagement.Data.dll
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\bin\Debug\net6.0\ProjectManagement.Data.runtimeconfig.json
+E:\Education\Проекты\ProjectManagementSystem\ProjectManagement.Data\obj\Debug\net6.0\ProjectManagement.Data.genruntimeconfig.cache

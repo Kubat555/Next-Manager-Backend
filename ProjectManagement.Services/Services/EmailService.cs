@@ -1,5 +1,6 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
+using ProjectManagement.Services.Interfaces;
 using ProjectManagement.Services.Models;
 
 namespace ProjectManagement.Services.Services

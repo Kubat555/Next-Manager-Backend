@@ -12,6 +12,7 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.29",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.29",
+          "ProjectManagement.Data": "1.0.0",
           "ProjectManagement.Services": "1.0.0",
           "Swashbuckle.AspNetCore": "6.5.0"
         },
@@ -642,12 +643,22 @@
           }
         }
       },
+      "ProjectManagement.Data/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.29",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29"
+        },
+        "runtime": {
+          "ProjectManagement.Data.dll": {}
+        }
+      },
       "ProjectManagement.Services/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.29",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.29",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.29",
-          "NETCore.MailKit": "2.1.0"
+          "NETCore.MailKit": "2.1.0",
+          "ProjectManagement.Data": "1.0.0"
         },
         "runtime": {
           "ProjectManagement.Services.dll": {}
@@ -1129,6 +1140,11 @@
       "sha512": "sha512-CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
       "path": "system.windows.extensions/4.7.0",
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
+    },
+    "ProjectManagement.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "ProjectManagement.Services/1.0.0": {
       "type": "project",

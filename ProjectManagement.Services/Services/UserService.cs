@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using ProjectManagement.Data.Models;
+using ProjectManagement.Services.Interfaces;
 using ProjectManagement.Services.Models;
 using ProjectManagement.Services.Models.Authentication.Login;
 using ProjectManagement.Services.Models.Authentication.Signup;
@@ -14,13 +16,13 @@ namespace ProjectManagement.Services.Services
 {
     public class UserService : IUserService
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
         public UserService
             (
-                UserManager<IdentityUser> userManager,
+                UserManager<User> userManager,
                 RoleManager<IdentityRole> roleManager,
                 IConfiguration configuration
             )
@@ -63,10 +65,12 @@ namespace ProjectManagement.Services.Services
             }
 
             //Add User in the Database
-            IdentityUser newUser = new()
+            User newUser = new()
             {
                 Email = registerUser.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
+                FirstName = registerUser.FirstName,
+                LastName = registerUser.LastName,
                 UserName = registerUser.UserName
             };
 
