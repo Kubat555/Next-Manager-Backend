@@ -7,7 +7,7 @@ namespace ProjectManagement.Services.Interfaces
     public interface IUserService
     {
         Task<ApiResponse<string>> CreateUserWithTokenAsync(RegisterUser registerUser);
-        Task<ApiResponse<string>> LoginUserWithJwtTokenAsync(LoginModel loginModel);
+        Task<ApiResponse<LoginResponse>> LoginUserWithJwtTokenAsync(LoginModel loginModel);
         Task<ApiResponse<string>> ConfirmUserEmailAsync(string token, string email);
     }
 }

@@ -89,16 +89,16 @@ namespace ProjectManagement.Services.Services
             }
         }
 
-        public async Task<ApiResponse<string>> LoginUserWithJwtTokenAsync(LoginModel loginModel)
+        public async Task<ApiResponse<LoginResponse>> LoginUserWithJwtTokenAsync(LoginModel loginModel)
         {
-            var user = await _userManager.FindByEmailAsync(loginModel.Email);
+            var user = await _userManager.FindByNameAsync(loginModel.UserName);
 
             if (user != null && await _userManager.CheckPasswordAsync(user, loginModel.Password) && user.EmailConfirmed)
             {
                 //claimslist creation
                 var authClaims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, loginModel.Email),
+                    new Claim(ClaimTypes.Name, loginModel.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
@@ -110,11 +110,15 @@ namespace ProjectManagement.Services.Services
 
                 //generate token
                 var jwtToken = GetToken(authClaims);
-
-                return new ApiResponse<string>() { isSuccess = true, StatusCode = 200, Response = new JwtSecurityTokenHandler().WriteToken(jwtToken), 
+                LoginResponse response = new()
+                {
+                    Token = new JwtSecurityTokenHandler().WriteToken(jwtToken),
+                    UserId = user.Id
+                };
+                return new ApiResponse<LoginResponse>() { isSuccess = true, StatusCode = 200, Response = response, 
                     Message = "Token created!" };
             }
-            return new ApiResponse<string> { isSuccess = false, StatusCode = 401, Message = "User not found or password is not correct or user email is not confirm!" };
+            return new ApiResponse<LoginResponse> { isSuccess = false, StatusCode = 401, Message = "User not found or password is not correct or user email is not confirm!" };
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)

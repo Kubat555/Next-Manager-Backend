@@ -11,22 +11,59 @@ namespace ProjectManagement.Data
         {
 
         }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectEmployee> ProjectEmployees { get; set; }
+        public DbSet<Tasks> Tasks { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<Priority> Priorities { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            SeedRoles(builder);
-        }
 
-        private static void SeedRoles(ModelBuilder builder)
-        {
-            builder.Entity<IdentityRole>().HasData
-                (
-                    new IdentityRole() { Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "Admin"},
-                    new IdentityRole() { Name = "Manager", ConcurrencyStamp = "2", NormalizedName = "Manager" },
-                    new IdentityRole() { Name = "Employee", ConcurrencyStamp = "3", NormalizedName = "Employee" }
+            #region ProjectEmployeee
+            builder.Entity<ProjectEmployee>()
+                .HasOne(pe => pe.User)
+                .WithMany(u => u.ProjectEmployees)
+                .HasForeignKey(pe => pe.UserId);
 
-                );
+            builder.Entity<ProjectEmployee>()
+                .HasOne(pe => pe.Project)
+                .WithMany(p => p.ProjectEmployees)
+                .HasForeignKey(pe => pe.ProjectId);
+            #endregion
+
+            #region Tasks
+            builder.Entity<Tasks>()
+                .HasOne(t => t.Project)
+                .WithMany()
+                .HasForeignKey(t => t.ProjectId);
+
+            builder.Entity<Tasks>()
+                .HasOne(t => t.Author)
+                .WithMany()
+                .HasForeignKey(t => t.AuthorId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Tasks>()
+                .HasOne(t => t.Executor)
+                .WithMany()
+                .HasForeignKey(t => t.ExecutorId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Tasks>()
+                .HasOne(t => t.Status)
+                .WithMany()
+                .HasForeignKey(t => t.StatusId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Tasks>()
+                .HasOne(t => t.Priority)
+                .WithMany()
+                .HasForeignKey(t => t.PriorityId)
+            .OnDelete(DeleteBehavior.NoAction);
+            #endregion
         }
     }
 }

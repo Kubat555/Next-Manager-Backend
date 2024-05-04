@@ -50,7 +50,7 @@ namespace ProjectManagementSystem.Controllers
 
             if (token.isSuccess)
             {
-                return Ok(token);      
+                return Ok(token.Response);      
             }
             return Unauthorized(token);
         }
@@ -67,5 +67,6 @@ namespace ProjectManagementSystem.Controllers
 
             return StatusCode(confirm.StatusCode, confirm.Message);
         }
+
     }
 }
