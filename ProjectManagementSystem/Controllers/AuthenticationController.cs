@@ -36,9 +36,9 @@ namespace ProjectManagementSystem.Controllers
                 var message = new Message(new string[] { registerUser.Email! }, "Confirmation email link", content!);
                 _emailService.SendEmail(message);
 
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return StatusCode(result.StatusCode, result.Message);
+            return StatusCode(result.StatusCode, result);
         }
 
         [HttpPost]
@@ -50,7 +50,7 @@ namespace ProjectManagementSystem.Controllers
 
             if (token.isSuccess)
             {
-                return Ok(token.Response);      
+                return Ok(token);      
             }
             return Unauthorized(token);
         }

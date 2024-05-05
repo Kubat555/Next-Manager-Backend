@@ -15,12 +15,15 @@ namespace ProjectManagement.Services.Interfaces
         //Создание проекта
         Task<Project> CreateProject(ProjectCreateDTO projectCreateDTO);
         //Изменение проекта
-        Task<ApiResponse<string>> EditProject(Project project);
+        Task<ApiResponse> EditProject(Project project);
         //Удаление проекта
-        Task<ApiResponse<string>> DeleteProject(int id);
+        Task<ApiResponse> DeleteProject(int id);
         //Добавление сотрудника в проект
-        Task<bool> AddEmployeeToProject(string userId, int projectId);
-
+        Task<ApiResponse> AddEmployeeToProject(string userId, int projectId);
+        //Удаление сотрудника из проекта
+        Task<ApiResponse> DeleteEmployeeInProject(string userId, int projectId);
+        //Получение списка проектов сотрудника
+        Task<ApiResponse<ICollection<ProjectsDTO>>> GetEmployeeProjects(string userId);
         void SaveChanges();
     }
 }

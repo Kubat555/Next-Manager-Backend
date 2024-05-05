@@ -41,12 +41,6 @@ namespace ProjectManagement.Data
                 .HasForeignKey(t => t.ProjectId);
 
             builder.Entity<Tasks>()
-                .HasOne(t => t.Author)
-                .WithMany()
-                .HasForeignKey(t => t.AuthorId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<Tasks>()
                 .HasOne(t => t.Executor)
                 .WithMany()
                 .HasForeignKey(t => t.ExecutorId)

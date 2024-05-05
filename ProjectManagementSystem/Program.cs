@@ -9,6 +9,7 @@ using ProjectManagement.Data;
 using System.Text;
 using ProjectManagement.Data.Models;
 using ProjectManagement.Services.Interfaces;
+using ProjectManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,9 +58,14 @@ builder.Services.AddSingleton(emailConfig);
 
 builder.Services.AddScoped<IEmailService, EmailService>();
 
+//Add Automapper
+builder.Services.AddAutoMapper(typeof(AppMappingProfile));
+
 // Add services to the container.
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -1,9 +1,13 @@
-﻿
-namespace ProjectManagement.Data.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProjectManagement.Data.DTO
 {
-    public class Tasks
+    public class TaskCreateDTO
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int PriorityId { get; set; }
         public int StatusId { get; set; }
@@ -11,10 +15,5 @@ namespace ProjectManagement.Data.Models
         public DateTime Deadline { get; set; }
         public string? ExecutorId { get; set; }
         public int ProjectId { get; set; }
-
-        public Priority Priority { get; set; }
-        public Status Status { get; set; }
-        public User? Executor { get; set; }
-        public Project Project { get; set; }
     }
 }

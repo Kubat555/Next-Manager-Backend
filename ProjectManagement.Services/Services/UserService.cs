@@ -1,9 +1,10 @@
 ﻿
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ProjectManagement.Data.Models;
+using ProjectManagement.Data.DTO;
 using ProjectManagement.Services.Interfaces;
 using ProjectManagement.Services.Models;
 using ProjectManagement.Services.Models.Authentication.Login;
@@ -11,6 +12,7 @@ using ProjectManagement.Services.Models.Authentication.Signup;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using AutoMapper;
 
 namespace ProjectManagement.Services.Services
 {
@@ -19,17 +21,19 @@ namespace ProjectManagement.Services.Services
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
-
+        private readonly IMapper _mapper;
         public UserService
             (
                 UserManager<User> userManager,
                 RoleManager<IdentityRole> roleManager,
-                IConfiguration configuration
+                IConfiguration configuration,
+                IMapper mapper
             )
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         public async Task<ApiResponse<string>> ConfirmUserEmailAsync(string token, string email)
@@ -119,6 +123,94 @@ namespace ProjectManagement.Services.Services
                     Message = "Token created!" };
             }
             return new ApiResponse<LoginResponse> { isSuccess = false, StatusCode = 401, Message = "User not found or password is not correct or user email is not confirm!" };
+        }
+
+        public async Task<ApiResponse<IdentityResult>> UpdateUserRoleAsync(string userId, string newRole)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if(user != null)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
+
+                var removeRolesResult = await _userManager.RemoveFromRolesAsync(user, userRoles);
+
+                if (!removeRolesResult.Succeeded)
+                {
+                    return new ApiResponse<IdentityResult>()
+                    {
+                        isSuccess = false,
+                        Message = removeRolesResult.ToString(),
+                        StatusCode = 500
+                    };
+                }
+
+                var addRoleResult = await _userManager.AddToRoleAsync(user, newRole);
+
+                return new ApiResponse<IdentityResult>()
+                {
+                    isSuccess = true,
+                    Message = $"User role changed",
+                    StatusCode = 200,
+                    Response = addRoleResult
+                };
+            }
+            return new ApiResponse<IdentityResult>()
+            {
+                isSuccess = false,
+                Message = "User not found",
+                StatusCode = 400
+            };
+        }
+
+        public async Task<ApiResponse<ICollection<IdentityRole>>> GetUserRoleAsync()
+        {
+            var roles = await _roleManager.Roles.ToListAsync();
+            if (roles.Count == 0)
+            {
+                return new ApiResponse<ICollection<IdentityRole>>()
+                {
+                    isSuccess = true,
+                    Message = "Roles is empty",
+                    StatusCode = 200
+                };
+            }
+            return new ApiResponse<ICollection<IdentityRole>>()
+            {
+                isSuccess = true,
+                Message = "All roles received",
+                StatusCode = 200,
+                Response = roles
+            };
+        }
+        public async Task<ApiResponse<ICollection<UserDTO>>> GetUsersAsync()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            List<UserDTO> usersDTO = new List<UserDTO>();
+            if (users.Count == 0)
+            {
+                return new ApiResponse<ICollection<UserDTO>>()
+                {
+                    isSuccess = true,
+                    Message = "Roles is empty",
+                    StatusCode = 200
+                };
+            }
+
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                var role = roles.FirstOrDefault();
+                var userDTO = _mapper.Map<UserDTO>(user);
+                userDTO.Role = role;
+                usersDTO.Add(userDTO);
+            }
+            return new ApiResponse<ICollection<UserDTO>>()
+            {
+                isSuccess = true,
+                Message = "All roles received",
+                StatusCode = 200,
+                Response = usersDTO
+            };
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
