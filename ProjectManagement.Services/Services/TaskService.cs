@@ -93,10 +93,12 @@ namespace ProjectManagement.Services.Services
             }
         }
 
-        public async Task<ApiResponse<ICollection<TasksDTO>>> GetAllTasks(int projectId)
+        public async Task<ApiResponse<TasksBoardDTO>> GetAllTasks(int projectId)
         {
-            var tasks = await _context.Tasks
-                .Where(t => t.ProjectId == projectId)
+            var tasksBoard = new TasksBoardDTO();
+
+            tasksBoard.ToDo = await _context.Tasks
+                .Where(t => t.ProjectId == projectId && t.StatusId == 1)
                 .Select(t => new TasksDTO
                 {
                     Id = t.Id,
@@ -109,12 +111,58 @@ namespace ProjectManagement.Services.Services
                     Deadline = t.Deadline,
                     ExecutorId = t.ExecutorId,
                     ExecutorName = t.Executor.FirstName + " " + t.Executor.LastName,
-                    ProjectId = t.ProjectId
+                    ProjectId = t.ProjectId,
+                    Desciption = t.Description
                 })
+                .AsNoTracking()
                 .ToListAsync();
-            if (tasks.Count == 0)
+
+            tasksBoard.InProgress = await _context.Tasks
+                .Where(t => t.ProjectId == projectId && t.StatusId == 2)
+                .Select(t => new TasksDTO
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    PriorityId = t.PriorityId,
+                    PriorityName = t.Priority.Name,
+                    StatusId = t.StatusId,
+                    StatusName = t.Status.Name,
+                    CreatedDate = t.CreatedDate,
+                    Deadline = t.Deadline,
+                    ExecutorId = t.ExecutorId,
+                    ExecutorName = t.Executor.FirstName + " " + t.Executor.LastName,
+                    ProjectId = t.ProjectId,
+                    Desciption = t.Description
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            tasksBoard.Done = await _context.Tasks
+                .Where(t => t.ProjectId == projectId && t.StatusId == 3)
+                .Select(t => new TasksDTO
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    PriorityId = t.PriorityId,
+                    PriorityName = t.Priority.Name,
+                    StatusId = t.StatusId,
+                    StatusName = t.Status.Name,
+                    CreatedDate = t.CreatedDate,
+                    Deadline = t.Deadline,
+                    ExecutorId = t.ExecutorId,
+                    ExecutorName = t.Executor.FirstName + " " + t.Executor.LastName,
+                    ProjectId = t.ProjectId,
+                    Desciption = t.Description
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            tasksBoard.TasksCount = tasksBoard.ToDo.Count + tasksBoard.InProgress.Count + tasksBoard.Done.Count;
+            tasksBoard.CompletedTasksCount = tasksBoard.Done.Count;
+
+            if (tasksBoard.TasksCount == 0)
             {
-                return new ApiResponse<ICollection<TasksDTO>>()
+                return new ApiResponse<TasksBoardDTO>()
                 {
                     isSuccess = true,
                     Message = "Tasks is empty!",
@@ -122,19 +170,21 @@ namespace ProjectManagement.Services.Services
                     Response = null
                 };
             }
-            return new ApiResponse<ICollection<TasksDTO>>()
+            return new ApiResponse<TasksBoardDTO>()
             {
                 isSuccess = true,
                 Message = "All tasks received!",
                 StatusCode = 200,
-                Response = tasks
+                Response = tasksBoard
             };
         }
 
-        public async Task<ApiResponse<ICollection<TasksDTO>>> GetEmployeeTasks(int projectId, string employeeId)
+        public async Task<ApiResponse<TasksBoardDTO>> GetEmployeeTasks(int projectId, string employeeId)
         {
-            var tasks = await _context.Tasks
-                .Where(t => t.ProjectId == projectId && t.ExecutorId == employeeId)
+            var tasksBoard = new TasksBoardDTO();
+
+            tasksBoard.ToDo = await _context.Tasks
+                .Where(t => t.ProjectId == projectId && t.ExecutorId == employeeId && t.StatusId == 1)
                 .Select(t => new TasksDTO
                 {
                     Id = t.Id,
@@ -147,12 +197,58 @@ namespace ProjectManagement.Services.Services
                     Deadline = t.Deadline,
                     ExecutorId = t.ExecutorId,
                     ExecutorName = t.Executor.FirstName + " " + t.Executor.LastName,
-                    ProjectId = t.ProjectId
+                    ProjectId = t.ProjectId,
+                    Desciption = t.Description
                 })
+                .AsNoTracking()
                 .ToListAsync();
-            if (tasks.Count == 0)
+
+            tasksBoard.InProgress = await _context.Tasks
+                .Where(t => t.ProjectId == projectId && t.ExecutorId == employeeId && t.StatusId == 2)
+                .Select(t => new TasksDTO
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    PriorityId = t.PriorityId,
+                    PriorityName = t.Priority.Name,
+                    StatusId = t.StatusId,
+                    StatusName = t.Status.Name,
+                    CreatedDate = t.CreatedDate,
+                    Deadline = t.Deadline,
+                    ExecutorId = t.ExecutorId,
+                    ExecutorName = t.Executor.FirstName + " " + t.Executor.LastName,
+                    ProjectId = t.ProjectId,
+                    Desciption = t.Description
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            tasksBoard.Done = await _context.Tasks
+                .Where(t => t.ProjectId == projectId && t.ExecutorId == employeeId && t.StatusId == 3)
+                .Select(t => new TasksDTO
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    PriorityId = t.PriorityId,
+                    PriorityName = t.Priority.Name,
+                    StatusId = t.StatusId,
+                    StatusName = t.Status.Name,
+                    CreatedDate = t.CreatedDate,
+                    Deadline = t.Deadline,
+                    ExecutorId = t.ExecutorId,
+                    ExecutorName = t.Executor.FirstName + " " + t.Executor.LastName,
+                    ProjectId = t.ProjectId,
+                    Desciption = t.Description
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            tasksBoard.TasksCount = tasksBoard.ToDo.Count + tasksBoard.InProgress.Count + tasksBoard.Done.Count;
+            tasksBoard.CompletedTasksCount = tasksBoard.Done.Count;
+
+            if (tasksBoard.TasksCount == 0)
             {
-                return new ApiResponse<ICollection<TasksDTO>>()
+                return new ApiResponse<TasksBoardDTO>()
                 {
                     isSuccess = true,
                     Message = "Tasks is empty!",
@@ -160,12 +256,12 @@ namespace ProjectManagement.Services.Services
                     Response = null
                 };
             }
-            return new ApiResponse<ICollection<TasksDTO>>()
+            return new ApiResponse<TasksBoardDTO>()
             {
                 isSuccess = true,
                 Message = "All tasks received!",
                 StatusCode = 200,
-                Response = tasks
+                Response = tasksBoard
             };
         }
 

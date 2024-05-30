@@ -12,9 +12,9 @@ namespace ProjectManagement.Services.Interfaces
     public interface ITaskService
     {
         //Получение списка всех задач
-        Task<ApiResponse<ICollection<TasksDTO>>> GetAllTasks(int projectId);
+        Task<ApiResponse<TasksBoardDTO>> GetAllTasks(int projectId);
         //Получения списка задач определенного пользователя
-        Task<ApiResponse<ICollection<TasksDTO>>> GetEmployeeTasks(int projectId, string employeeId);
+        Task<ApiResponse<TasksBoardDTO>> GetEmployeeTasks(int projectId, string employeeId);
 
         //Добавление задача
         Task<ApiResponse> CreateTask(TaskCreateDTO taskCreateDTO);

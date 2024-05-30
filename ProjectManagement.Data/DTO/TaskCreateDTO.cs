@@ -15,5 +15,6 @@ namespace ProjectManagement.Data.DTO
         public DateTime Deadline { get; set; }
         public string? ExecutorId { get; set; }
         public int ProjectId { get; set; }
+        public string? Description { get; set; }
     }
 }

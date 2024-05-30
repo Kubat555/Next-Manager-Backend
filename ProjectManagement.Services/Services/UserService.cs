@@ -191,7 +191,7 @@ namespace ProjectManagement.Services.Services
                 return new ApiResponse<ICollection<UserDTO>>()
                 {
                     isSuccess = true,
-                    Message = "Roles is empty",
+                    Message = "Users is empty",
                     StatusCode = 200
                 };
             }
@@ -212,6 +212,34 @@ namespace ProjectManagement.Services.Services
                 Response = usersDTO
             };
         }
+        public async Task<ApiResponse<UserDTO>> GetUserAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if(user == null)
+            {
+                return new ApiResponse<UserDTO>()
+                {
+                    isSuccess = false,
+                    Message = "User not found!",
+                    StatusCode = 400
+                };
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var role = roles.FirstOrDefault();
+            var userDTO = _mapper.Map<UserDTO>(user);
+            userDTO.Role = role;
+
+            return new ApiResponse<UserDTO>()
+            {
+                isSuccess = true,
+                Message = "User found successfully",
+                StatusCode = 200, 
+                Response = userDTO
+            };
+        }
+
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
@@ -220,12 +248,14 @@ namespace ProjectManagement.Services.Services
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
                 audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(3),
+                expires: DateTime.Now.AddHours(8),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigninKey, SecurityAlgorithms.HmacSha256)
                 );
 
             return token;
         }
+
+
     }
 }

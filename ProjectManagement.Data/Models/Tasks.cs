@@ -11,6 +11,7 @@ namespace ProjectManagement.Data.Models
         public DateTime Deadline { get; set; }
         public string? ExecutorId { get; set; }
         public int ProjectId { get; set; }
+        public string? Description { get; set; }
 
         public Priority Priority { get; set; }
         public Status Status { get; set; }

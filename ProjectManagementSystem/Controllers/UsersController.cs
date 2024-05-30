@@ -43,5 +43,12 @@ namespace ProjectManagementSystem.Controllers
             var res = await _userService.GetUsersAsync();
             return StatusCode(res.StatusCode, res);
         }
+
+        [HttpGet("GetUser")]
+        public async Task<IActionResult> GetUser(string id)
+        {
+            var res = await _userService.GetUserAsync(id);
+            return StatusCode(res.StatusCode, res);
+        }
     }
 }

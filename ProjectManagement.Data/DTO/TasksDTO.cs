@@ -14,6 +14,7 @@ namespace ProjectManagement.Data.DTO
         public string PriorityName { get; set; }
         public int StatusId { get; set; }
         public string StatusName { get; set; }
+        public string? Desciption { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime Deadline { get; set; }
         public string? ExecutorId { get; set; }

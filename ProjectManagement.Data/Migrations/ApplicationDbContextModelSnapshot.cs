@@ -252,6 +252,9 @@ namespace ProjectManagement.Data.Migrations
                     b.Property<DateTime>("Deadline")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ExecutorId")
                         .HasColumnType("nvarchar(450)");
 
