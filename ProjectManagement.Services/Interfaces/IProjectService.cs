@@ -15,7 +15,7 @@ namespace ProjectManagement.Services.Interfaces
         //Создание проекта
         Task<Project> CreateProject(ProjectCreateDTO projectCreateDTO);
         //Изменение проекта
-        Task<ApiResponse> EditProject(Project project);
+        Task<ApiResponse> EditProject(int id, ProjectCreateDTO project);
         //Удаление проекта
         Task<ApiResponse> DeleteProject(int id);
         //Добавление сотрудника в проект

@@ -43,9 +43,9 @@ namespace ProjectManagementSystem.Controllers
         }
 
         [HttpPut("EditTask")]
-        public async Task<IActionResult> EditTask([FromBody] Tasks task)
+        public async Task<IActionResult> EditTask(int id, [FromBody] TaskCreateDTO task)
         {
-            var res = await _taskService.EditTask(task);
+            var res = await _taskService.EditTask(id, task);
             return StatusCode(res.StatusCode, res);
         }
 

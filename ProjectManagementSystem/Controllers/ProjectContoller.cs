@@ -34,9 +34,9 @@ namespace ProjectManagementSystem.Controllers
 
         [HttpPut("EditProject")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> EditProject([FromBody] Project project)
+        public async Task<IActionResult> EditProject(int id, [FromBody] ProjectCreateDTO project)
         {
-            var res = await _projectService.EditProject(project);
+            var res = await _projectService.EditProject(id, project);
             return StatusCode(res.StatusCode, res);
         }
 

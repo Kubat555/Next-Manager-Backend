@@ -22,9 +22,9 @@ namespace ProjectManagementSystem.Controllers
 
         [HttpPost("ChangeRole")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> ChangeUserRole(string userId, string newRole)
+        public async Task<IActionResult> ChangeUserRole(string userId, string roleName)
         {
-            var res = await _userService.UpdateUserRoleAsync(userId, newRole);
+            var res = await _userService.UpdateUserRoleAsync(userId, roleName);
             return StatusCode(res.StatusCode, res);
         }
 

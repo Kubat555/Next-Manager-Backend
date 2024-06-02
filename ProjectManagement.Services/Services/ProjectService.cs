@@ -82,9 +82,9 @@ namespace ProjectManagement.Services.Services
 
         }
 
-        public async Task<ApiResponse> EditProject(Project project)
+        public async Task<ApiResponse> EditProject(int id, ProjectCreateDTO project)
         {
-            var existingProject = await _context.Projects.FindAsync(project.Id);
+            var existingProject = await _context.Projects.FindAsync(id);
 
             if (existingProject == null)
             {
@@ -120,6 +120,7 @@ namespace ProjectManagement.Services.Services
                     EmployeeProjectId = pe.Id,
                     EmployeeAddedDate = pe.AddedDate
                 })
+                .OrderByDescending(pe => pe.CreatedDate)
                 .ToListAsync();
                 return new ApiResponse<ICollection<ProjectsDTO>>()
                 {

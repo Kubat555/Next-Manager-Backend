@@ -63,14 +63,14 @@ namespace ProjectManagement.Services.Services
             return new ApiResponse() { isSuccess = false, Message = "Task is not found!", StatusCode = 400 };
         }
 
-        public async Task<ApiResponse> EditTask(Tasks task)
+        public async Task<ApiResponse> EditTask(int id, TaskCreateDTO task)
         {
             if (task == null)
             {
                 return new ApiResponse() { isSuccess = false, Message = "Task object is null!", StatusCode = 400 };
             }
 
-            var existingTask = await _context.Tasks.FindAsync(task.Id);
+            var existingTask = await _context.Tasks.FindAsync(id);
 
             if (existingTask == null)
             {
@@ -114,6 +114,7 @@ namespace ProjectManagement.Services.Services
                     ProjectId = t.ProjectId,
                     Desciption = t.Description
                 })
+                .OrderByDescending(t => t.CreatedDate)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -134,6 +135,7 @@ namespace ProjectManagement.Services.Services
                     ProjectId = t.ProjectId,
                     Desciption = t.Description
                 })
+                .OrderByDescending(t => t.CreatedDate)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -154,6 +156,7 @@ namespace ProjectManagement.Services.Services
                     ProjectId = t.ProjectId,
                     Desciption = t.Description
                 })
+                .OrderByDescending(t => t.CreatedDate)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -200,6 +203,7 @@ namespace ProjectManagement.Services.Services
                     ProjectId = t.ProjectId,
                     Desciption = t.Description
                 })
+                .OrderByDescending(t => t.CreatedDate)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -220,6 +224,7 @@ namespace ProjectManagement.Services.Services
                     ProjectId = t.ProjectId,
                     Desciption = t.Description
                 })
+                .OrderByDescending(t => t.CreatedDate)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -240,6 +245,7 @@ namespace ProjectManagement.Services.Services
                     ProjectId = t.ProjectId,
                     Desciption = t.Description
                 })
+                .OrderByDescending(t => t.CreatedDate)
                 .AsNoTracking()
                 .ToListAsync();
 

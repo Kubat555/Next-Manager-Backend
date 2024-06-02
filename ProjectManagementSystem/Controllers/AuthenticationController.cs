@@ -50,7 +50,17 @@ namespace ProjectManagementSystem.Controllers
 
             if (token.isSuccess)
             {
-                return Ok(token);      
+                var cookieOptions = new CookieOptions
+                {
+                    HttpOnly = false,
+                    Expires = DateTime.UtcNow.AddHours(3),
+                    SameSite = SameSiteMode.Strict,
+                    Secure = true,
+                    Path ="/"
+                };
+
+                Response.Cookies.Append("token", token.Response.Token, cookieOptions);
+                return Ok(token);
             }
             return Unauthorized(token);
         }

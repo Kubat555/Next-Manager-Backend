@@ -23,7 +23,7 @@ namespace ProjectManagement.Services.Interfaces
         Task<ApiResponse> DeleteTask(int id);
 
         //Редактирование задачи
-        Task<ApiResponse> EditTask(Tasks task);
+        Task<ApiResponse> EditTask(int id, TaskCreateDTO task);
 
         Task<ApiResponse<ICollection<Status>>> GetAllStatuses();
         Task<ApiResponse<ICollection<Priority>>> GetAllPriorities();
