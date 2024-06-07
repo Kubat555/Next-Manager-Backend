@@ -11,5 +11,6 @@ namespace ProjectManagement.Data.DTO
         public string? Name { get; set; }
         public string? Description { get; set; }
         public string UserId { get; set; }
+        public bool isCompleted { get; set; } = false;
     }
 }

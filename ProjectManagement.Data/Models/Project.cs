@@ -13,6 +13,7 @@ namespace ProjectManagement.Data.Models
         public string? Name { get; set; }
         public string? Description { get; set; }
         public DateTime? CreatedDate { get; set; }
+        public bool isCompleted { get; set; } = false;
 
         public ICollection<ProjectEmployee>? ProjectEmployees { get; set; }
     }

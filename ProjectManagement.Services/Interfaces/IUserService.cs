@@ -15,5 +15,6 @@ namespace ProjectManagement.Services.Interfaces
         Task<ApiResponse<ICollection<IdentityRole>>> GetUserRoleAsync();
         Task<ApiResponse<ICollection<UserDTO>>> GetUsersAsync();
         Task<ApiResponse<UserDTO>> GetUserAsync(string userId);
+        Task<ApiResponse<UserStatisticalDataDTO>> GetUserStatistic(string userId);
     }
 }

@@ -46,9 +46,9 @@ namespace ProjectManagementSystem.Controllers
         public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
             //checking the user
-            var token = await _userService.LoginUserWithJwtTokenAsync(loginModel);
+            var result = await _userService.LoginUserWithJwtTokenAsync(loginModel);
 
-            if (token.isSuccess)
+            if (result.isSuccess)
             {
                 var cookieOptions = new CookieOptions
                 {
@@ -59,10 +59,10 @@ namespace ProjectManagementSystem.Controllers
                     Path ="/"
                 };
 
-                Response.Cookies.Append("token", token.Response.Token, cookieOptions);
-                return Ok(token);
+                Response.Cookies.Append("token", result.Response.Token, cookieOptions);
+                return Ok(result);
             }
-            return Unauthorized(token);
+            return Unauthorized(result);
         }
 
 
@@ -72,7 +72,7 @@ namespace ProjectManagementSystem.Controllers
             var confirm = await _userService.ConfirmUserEmailAsync(token, email);
             if (confirm.isSuccess)
             {
-                return Ok(confirm.Message);
+                return Redirect("https://next-manager-iota.vercel.app/auth/register/email/confirm");
             }
 
             return StatusCode(confirm.StatusCode, confirm.Message);

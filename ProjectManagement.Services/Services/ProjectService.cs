@@ -93,6 +93,7 @@ namespace ProjectManagement.Services.Services
 
             existingProject.Name = project.Name;
             existingProject.Description = project.Description;
+            existingProject.isCompleted = project.isCompleted;
 
             try
             {
@@ -117,6 +118,7 @@ namespace ProjectManagement.Services.Services
                     Name = pe.Project.Name,
                     Description = pe.Project.Description,
                     CreatedDate = pe.Project.CreatedDate,
+                    isCompleted = pe.Project.isCompleted,
                     EmployeeProjectId = pe.Id,
                     EmployeeAddedDate = pe.AddedDate
                 })

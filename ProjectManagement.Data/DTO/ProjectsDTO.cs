@@ -12,6 +12,7 @@ namespace ProjectManagement.Data.DTO
         public string? Name { get; set; }
         public string? Description { get; set; }
         public DateTime? CreatedDate { get; set; }
+        public bool isCompleted { get; set; }
 
         public int EmployeeProjectId { get; set; }
         public DateTime? EmployeeAddedDate { get; set; }
