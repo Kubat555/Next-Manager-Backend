@@ -71,6 +71,21 @@ namespace ProjectManagementSystem.Controllers
             return StatusCode(res.StatusCode, res);
         }
 
-        
+        [HttpGet("GetProjectById")]
+        public async Task<IActionResult> GetProjectById(int projectId)
+        {
+            var res = await _projectService.GetProjectById(projectId);
+            return StatusCode(res.StatusCode, res);
+        }
+
+        [HttpGet("GetReport")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetReport(int projectId)
+        {
+            var res = await _projectService.GetReport(projectId);
+            return StatusCode(res.StatusCode, res);
+        }
+
+
     }
 }

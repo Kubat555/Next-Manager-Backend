@@ -141,6 +141,84 @@ namespace ProjectManagement.Services.Services
             };
         }
 
+        public async Task<ApiResponse<ProjectByIdDTO>> GetProjectById(int id)
+        {
+            var project = await _context.Projects.FirstOrDefaultAsync(p => p.Id == id);
+            if(project == null)
+            {
+                return new ApiResponse<ProjectByIdDTO>()
+                {
+                    isSuccess = false,
+                    Message = "Project is not found!",
+                    StatusCode = 400
+                };
+            }
+
+            var employees = await _context.ProjectEmployees
+                .Where(pe => pe.ProjectId == id)
+                .Select(pe => pe.User)
+                .AsNoTracking()
+                .ToListAsync();
+
+            var usersDTO = new List<UserDTO>();
+            foreach (var employee in employees)
+            {
+                var roles = await _userManager.GetRolesAsync(employee);
+                var role = roles.FirstOrDefault();
+                var userDTO = _mapper.Map<UserDTO>(employee);
+                userDTO.Role = role;
+                usersDTO.Add(userDTO);
+            }
+
+            var proj = _mapper.Map<ProjectsDTO>(project);
+
+            return new ApiResponse<ProjectByIdDTO>()
+            {
+                isSuccess = true,
+                Message = "Project information recieved!",
+                StatusCode = 200,
+                Response = new ProjectByIdDTO() { Project = proj, Users = usersDTO }
+            };
+        }
+
+        public async Task<ApiResponse<ReportDTO>> GetReport(int id)
+        {
+            var project = await _context.Projects.FindAsync(id);
+
+            if (project == null)
+            {
+                return new ApiResponse<ReportDTO>()
+                {
+                    isSuccess = false,
+                    Message = "ProjectNotFound",
+                    StatusCode = 400
+                };
+            }
+
+            var report = new ReportDTO();
+            report.ProjectName = project.Name;
+            report.ProjectStatus = project.isCompleted;
+            report.DateTime = DateTime.UtcNow.ToString("dd-mm-yyyy");
+
+            report.Statistics = await _context.ProjectEmployees
+                .Where(pe => pe.ProjectId == id)
+                .Select(pe => new Statistic
+                {
+                    EmployeeName = pe.User.FirstName + " " + pe.User.LastName,
+                    TasksCompleted = _context.Tasks.Count(t => t.ExecutorId == pe.UserId && t.StatusId == 3 && t.ProjectId == pe.ProjectId), // Подсчет завершенных задач
+                    TasksAssigned =  _context.Tasks.Count(t => t.ExecutorId == pe.UserId && t.ProjectId == pe.ProjectId) // Список назначенных задач
+                })
+                .ToListAsync();
+
+            return new ApiResponse<ReportDTO>()
+            {
+                isSuccess = true,
+                Response = report,
+                StatusCode = 200,
+                Message = "Report data recieved!"
+            };
+        }
+
         public async void SaveChanges()
         {
             await _context.SaveChangesAsync();

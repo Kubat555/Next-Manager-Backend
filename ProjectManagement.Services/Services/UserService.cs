@@ -14,6 +14,7 @@ using System.Security.Claims;
 using System.Text;
 using AutoMapper;
 using ProjectManagement.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace ProjectManagement.Services.Services
 {
@@ -295,9 +296,100 @@ namespace ProjectManagement.Services.Services
             };
         }
 
+        public async  Task<ApiResponse> IsUsernameTaken(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            var res = user == null;
+            if(!res)
+            {
+                return new ApiResponse
+                {
+                    isSuccess = false,
+                    Message = "Username is already taken!",
+                    StatusCode = 200
+                };
+            }
+            return new ApiResponse
+            {
+                isSuccess = true,
+                Message = "Username is free!",
+                StatusCode = 200
+            };
+        }
 
 
+        public async Task<ApiResponse> DeleteUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return new ApiResponse
+                {
+                    isSuccess = false,
+                    Message = "User not found!",
+                    StatusCode = 400
+                };
+            }
 
+            var projectEmloyee = await _context.ProjectEmployees.Where(pe => pe.UserId == user.Id).ToListAsync();
+            var tasks = await _context.Tasks.Where(t => t.ExecutorId == user.Id).ToListAsync();
+
+            foreach (var pe in projectEmloyee)
+            {
+                _context.ProjectEmployees.Remove(pe);
+            }
+
+            foreach (var task in tasks)
+            {
+                _context.Tasks.Remove(task);
+            }
+
+            var res = await _userManager.DeleteAsync(user);
+            if (!res.Succeeded)
+            {
+                return new ApiResponse
+                {
+                    isSuccess = false,
+                    Message = res.Errors.ToString(),
+                    StatusCode = 500
+                };
+            }
+
+            await _context.SaveChangesAsync();
+            return new ApiResponse
+            {
+                isSuccess = true,
+                Message = "User is deleted!",
+                StatusCode = 400
+            };
+        }
+
+        public async Task<ApiResponse> UpdateUser(UserDTO user)
+        {
+            var us = await _userManager.FindByIdAsync(user.Id);
+
+            if (us == null)
+            {
+                return new ApiResponse()
+                {
+                    isSuccess = false,
+                    StatusCode = 400,
+                    Message = "Bad data request!"
+                };
+            }
+
+            us.FirstName = user.FirstName;
+            us.LastName = user.LastName;
+
+            _context.SaveChanges();
+
+            return new ApiResponse()
+            {
+                isSuccess = true,
+                StatusCode = 200,
+                Message = "User data updated!"
+            };
+        }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
@@ -327,7 +419,6 @@ namespace ProjectManagement.Services.Services
 
             return result.OrderBy(x => x.Month).ToList();
         }
-
 
         private async Task<List<TaskMonth>> GetUserCompletedTasksStatsAsync(string userId)
         {
@@ -360,5 +451,6 @@ namespace ProjectManagement.Services.Services
             return result.OrderBy(s => s.Year).ThenBy(s => s.Month).ToList();
         }
 
+        
     }
 }

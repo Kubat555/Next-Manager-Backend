@@ -25,5 +25,7 @@ namespace ProjectManagement.Services.Interfaces
         //Получение списка проектов сотрудника
         Task<ApiResponse<ICollection<ProjectsDTO>>> GetEmployeeProjects(string userId);
         void SaveChanges();
+        Task<ApiResponse<ProjectByIdDTO>> GetProjectById(int id);
+        Task<ApiResponse<ReportDTO>> GetReport(int id);
     }
 }

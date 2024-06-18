@@ -78,5 +78,12 @@ namespace ProjectManagementSystem.Controllers
             return StatusCode(confirm.StatusCode, confirm.Message);
         }
 
+        [HttpGet("UsernameCheck")]
+        public async Task<IActionResult> UsernameCheck(string userName)
+        {
+            var res = await _userService.IsUsernameTaken(userName);
+            return StatusCode(res.StatusCode, res);
+        }
+
     }
 }

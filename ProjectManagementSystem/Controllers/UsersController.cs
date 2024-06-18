@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagement.Data.DTO;
 using ProjectManagement.Services.Interfaces;
 
 namespace ProjectManagementSystem.Controllers
@@ -57,5 +58,21 @@ namespace ProjectManagementSystem.Controllers
             var res = await _userService.GetUserStatistic(id);
             return StatusCode(res.StatusCode, res);
         }
+
+        [HttpDelete("DeleteUser")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var res = await _userService.DeleteUser(id);
+            return StatusCode(res.StatusCode, res);
+        }
+
+        [HttpPut("UpdateUser")]
+        public async Task<IActionResult> UpdateUser(UserDTO user)
+        {
+            var res = await _userService.UpdateUser(user);
+            return StatusCode(res.StatusCode, res);
+        }
+
     }
 }
