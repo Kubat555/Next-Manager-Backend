@@ -49,13 +49,17 @@
               "target": "Package",
               "version": "[6.0.29, )"
             },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[6.0.29, )"
-            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.29, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[6.0.11, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[6.0.29, )"
             }
@@ -141,10 +145,6 @@
               "target": "Package",
               "version": "[6.0.29, )"
             },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[6.0.29, )"
-            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -154,6 +154,10 @@
             "NETCore.MailKit": {
               "target": "Package",
               "version": "[2.1.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[6.0.29, )"
             }
           },
           "imports": [

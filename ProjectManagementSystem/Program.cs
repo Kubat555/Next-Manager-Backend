@@ -15,7 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //For EF
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(builder.Configuration["ConnectionStrings:PostgresDbConnection"], npgsqlOptions =>
+{
+    npgsqlOptions.CommandTimeout(50);
+}));
 
 //For Identity
 builder.Services.AddIdentity<User, IdentityRole>()
@@ -23,7 +26,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(
-        opts => { 
+        opts => {
             opts.SignIn.RequireConfirmedEmail = true;
             opts.User.RequireUniqueEmail = true;
             opts.Password.RequireUppercase = false;
