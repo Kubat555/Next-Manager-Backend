@@ -15,10 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 //For EF
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(builder.Configuration["ConnectionStrings:PostgresDbConnection"], npgsqlOptions =>
-{
-    npgsqlOptions.CommandTimeout(50);
-}));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(builder.Configuration["ConnectionStrings:PostgresDbConnection"]));
 
 //For Identity
 builder.Services.AddIdentity<User, IdentityRole>()
