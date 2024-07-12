@@ -12,7 +12,12 @@ namespace ProjectManagement.Data.Models
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        private DateTime _createdDate;
+        public DateTime CreatedDate
+        {
+            get => _createdDate;
+            set => _createdDate = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+        }
         public bool isCompleted { get; set; } = false;
 
         public ICollection<ProjectEmployee>? ProjectEmployees { get; set; }

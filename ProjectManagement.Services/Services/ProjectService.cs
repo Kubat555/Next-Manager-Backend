@@ -49,7 +49,7 @@ namespace ProjectManagement.Services.Services
             {
                 Name = projectCreateDTO.Name,
                 Description = projectCreateDTO.Description,
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.UtcNow
             };
             await _context.Projects.AddAsync(project);
             await _context.SaveChangesAsync();

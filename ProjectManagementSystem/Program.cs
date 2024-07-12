@@ -17,6 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 //For EF
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(builder.Configuration["ConnectionStrings:PostgresDbConnection"]));
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+
 //For Identity
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
