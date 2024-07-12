@@ -136,9 +136,20 @@ namespace ProjectManagement.Services.Services
         public async Task<ApiResponse<IdentityResult>> UpdateUserRoleAsync(string userId, string newRole)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if(user != null)
+            if (user != null)
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
+
+                // Проверяем, есть ли у пользователя роль администратора
+                if (userRoles.Contains("Admin"))
+                {
+                    return new ApiResponse<IdentityResult>()
+                    {
+                        isSuccess = false,
+                        Message = "Cannot change role of an admin user",
+                        StatusCode = 403 // Forbidden
+                    };
+                }
 
                 var removeRolesResult = await _userManager.RemoveFromRolesAsync(user, userRoles);
 
@@ -154,10 +165,20 @@ namespace ProjectManagement.Services.Services
 
                 var addRoleResult = await _userManager.AddToRoleAsync(user, newRole);
 
+                if (!addRoleResult.Succeeded)
+                {
+                    return new ApiResponse<IdentityResult>()
+                    {
+                        isSuccess = false,
+                        Message = addRoleResult.ToString(),
+                        StatusCode = 500
+                    };
+                }
+
                 return new ApiResponse<IdentityResult>()
                 {
                     isSuccess = true,
-                    Message = $"User role changed",
+                    Message = "User role changed",
                     StatusCode = 200,
                     Response = addRoleResult
                 };
@@ -169,6 +190,7 @@ namespace ProjectManagement.Services.Services
                 StatusCode = 400
             };
         }
+
 
         public async Task<ApiResponse<ICollection<IdentityRole>>> GetUserRoleAsync()
         {
