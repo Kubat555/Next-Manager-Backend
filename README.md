@@ -27,7 +27,7 @@ Next-Manager is a web application that helps teams manage projects efficiently. 
 
 1. **Clone the Repository**
    ```sh
-   git clone https://github.com/Kubat555/Next-Manager.Backend.git
+   git clone https://github.com/Kubat555/Next-Manager-Backend.git
    cd ProjectManagement
 
 2. **Configure the Database**  
